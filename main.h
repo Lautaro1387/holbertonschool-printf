@@ -18,7 +18,7 @@ typedef struct format
 } format_t;
 
 int _printf(const char *format, ...);
-int percent_case(va_list list, char c);
+int map_func(va_list list, char c);
 
 int print_char(va_list list);
 int print_str(va_list list);

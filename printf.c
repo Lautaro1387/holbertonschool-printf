@@ -37,12 +37,12 @@ int _printf(const char *format, ...)
 	return (charCount);
 }
 /**
- * percent_case - Function.
- * @list: Element of type va_list.
- * @c: char (format[i + 1])
- * Return: 2 (number of chars printed)
- */
-int percent_case(va_list list, char c)
+* map_func - maps format specifiers to functions
+* @list: va_list that contains args
+* @c: char (format[i + 1])
+* Return: 2 (number of chars printed)
+*/
+int map_func(va_list list, char c)
 {
 	int j;
 	format_t f[] = {
@@ -51,15 +51,9 @@ int percent_case(va_list list, char c)
 		{"d", print_dec},
 		{"i", print_dec}
 	};
-	j = 0;
-	while (j < 4)
-	{
+	for (j = 0; j < 4; j++)
 		if (*f[j].let == c)
-		{
 			return (f[j].f(list));
-		}
-		j++;
-	}
 	putchar('%');
 	putchar(c);
 	return (2);
