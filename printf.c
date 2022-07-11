@@ -8,12 +8,12 @@
 */
 int _printf(const char *format, ...)
 {
-	va_list list;
+	va_list ap;
 	int i, charCount = 0;
 
 	if (!format || !strcmp(format, "%"))
 		return (-1);
-	va_start(list, format);
+	va_start(ap, format);
 	for (i = 0; format[i]; i++)
 	{
 		if (format[i] == '%' && (format[i + 1] == 0 || format[i + 1] == '%'))
@@ -24,7 +24,7 @@ int _printf(const char *format, ...)
 		}
 		else if (format[i] == '%')
 		{
-			charCount += map_func(list, format[i + 1]);
+			charCount += map_func(ap, format[i + 1]);
 			i++;
 		}
 		else
@@ -33,16 +33,16 @@ int _printf(const char *format, ...)
 			putchar(format[i]);
 		}
 	}
-	va_end(list);
+	va_end(ap);
 	return (charCount);
 }
 /**
 * map_func - maps format specifiers to functions
-* @list: va_list that contains args
+* @ap: va_list that contains args
 * @c: char (format[i + 1])
 * Return: 2 (number of chars printed)
 */
-int map_func(va_list list, char c)
+int map_func(va_list ap, char c)
 {
 	int j;
 	format_t f[] = {
@@ -53,7 +53,7 @@ int map_func(va_list list, char c)
 	};
 	for (j = 0; j < 4; j++)
 		if (*f[j].let == c)
-			return (f[j].func(list));
+			return (f[j].func(ap));
 	putchar('%');
 	putchar(c);
 	return (2);

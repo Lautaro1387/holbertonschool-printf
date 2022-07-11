@@ -14,15 +14,16 @@
 typedef struct format
 {
 	char *let;
-	int (*func)(va_list list);
+	int (*func)(va_list ap);
 } format_t;
 
 int _printf(const char *format, ...);
-int map_func(va_list list, char c);
+int map_func(va_list, char);
 
-int print_char(va_list list);
-int print_str(va_list list);
-int print_dec(va_list list);
+int print_char(va_list);
+int print_str(va_list);
+int print_int(va_list);
 
-int print_digit(unsigned int n);
+int print_unsigned_int(unsigned int n);
+
 #endif
